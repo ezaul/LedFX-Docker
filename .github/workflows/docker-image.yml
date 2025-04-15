@@ -15,9 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ezaul/ledfx-docker:$(date +%s)
+      run: docker build . --file Dockerfile --tag ezaul/ledfx-docker:latest
     - name: publish
       run: | 
         docker login -u ezaul -p ${{ secrets.DOCKER_HUB_TOKER }}
-        docker push ezaul/ledfx-docker:$(date +%s)
+        docker push ezaul/ledfx-docker:latest
         
