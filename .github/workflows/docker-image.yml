@@ -18,6 +18,6 @@ jobs:
       run: docker build . --file Dockerfile --tag ezaul/ledfx-docker:$(date +%s)
     - name: publish
       run: | 
-        docker login -u ezaul -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        docker login -u ezaul -p ${{ secrets.DOCKER_HUB_TOKER }}
         docker push ezaul/ledfx-docker:$(date +%s)
         
