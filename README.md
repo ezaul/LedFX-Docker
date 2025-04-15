@@ -1,10 +1,10 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/shirom/ledfx.svg?style=for-the-badge&logo=github)](https://hub.docker.com/repository/docker/shirom/ledfx)
 
-# LedFxDocker
+# LedFX-Docker
 A Docker Image for [LedFx](https://github.com/LedFx/LedFx.git). 
 
 ## Introduction
-Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [Snapcast server](https://github.com/badaix/snapcast) or a [named pipe](https://www.linuxjournal.com/article/2156).
+Compiling LedFx to run on different systems is difficult because of all the dependencies. It's especially difficult on a Raspberry Pi (building LedFx on ARM takes over 2 hours). This image has everything built for you, and it can get audio from a [named pipe](https://www.linuxjournal.com/article/2156).
 
 ## Supported Architectures
 This image supports `x86-64`, `arm` and `arm64`. Docker will automatically pull the appropriate version. 
@@ -23,10 +23,9 @@ Feel free to open an issue if either of these is out of date
 
 services:
   ledfx:
-    image: shirom/ledfx 
+    image: ezaul/ledfx 
     container_name: ledfx
     environment: 
-      - HOST=192.168.0.15
       - FORMAT=-r 44100 -f S16_LE -c 2
       - SQUEEZE=1
     ports:
@@ -50,7 +49,6 @@ Each variable corresponds to a different input method. One of the following vari
 
 Variable | Function
 --- | --------
-`HOST` | This is the IP of the Snapcast server. Keep in mind that this IP is resolved from inside the container unless you use [host networking](https://docs.docker.com/network/host/). To refer to other docker containers in [bridge networking](https://docs.docker.com/network/bridge/) (the default for any two containers in the same compose file), just use the name of the container. To refer to `127.0.0.1` use `host.docker.internal` (compatibilty varies greatly between platforms and versions). 
 `FORMAT` | This variable specifies the format of the audio coming into `/app/audio/stream`. It can use any of the options defined in [aplay](https://linux.die.net/man/1/aplay). The example shown above corresponds to 44100hz, 16 bits, and 2 channels, the default for most applications. 
 `SQUEEZE` | Setting this variable to `1` allows this image to act as a [squeezelite](https://github.com/ralph-irving/squeezelite) client that can connect to a [Logitech Media Server](https://mysqueezebox.com/download).
 
@@ -99,9 +97,9 @@ You could also run a standalone instance of balenaSound on one device, LedFx on 
 
 If you want to make local modifications to this image for development purposes or just to customize the logic:
 ```
-git clone https://github.com/ShiromMakkad/LedFxDocker.git
-cd LedFxDocker
-docker build -t shirom/ledfx .
+git clone https://github.com/ezaul/LedFX-Docker.git
+cd LedFX-Docker
+docker build -t ezaul/ledfx .
 ```
 To build for `x86-64` and `arm` use:
 
