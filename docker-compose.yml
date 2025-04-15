@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  ledfx:
+    image: ledfx:latest
+    container_name: ledfx
+    build:
+      context: .
+    environment: 
+      - HOST=host.docker.internal
+      - FORMAT=-r 44100 -f S16_LE -c 2
+      - SQUEEZE=1
+    ports:
+      - 8888:8888
+    volumes:
+      - ~/ledfx-config:/app/ledfx-config
+      - ~/audio:/app/audio
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
